@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090a0b">
+  <meta name="description" content="The personal portfolio of Renal Maulana, a TJKT student building foundations in computer networking, web development, and digital technology.">
+  <meta name="author" content="Renal Maulana">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Renal Maulana | Technology Portfolio">
+  <meta property="og:description" content="TJKT student exploring computer networking, web development, and digital technology.">
+  <meta property="og:locale" content="en_US">
+  <title>Renal Maulana | Technology Portfolio</title>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090a0b;
+      --surface: #111315;
+      --surface-raised: #15181a;
+      --surface-soft: #0d0f10;
+      --line: rgba(255, 255, 255, .11);
+      --line-strong: rgba(255, 255, 255, .19);
+      --text: #f1f2f2;
+      --muted: #a0a5a8;
+      --subtle: #737a7e;
+      --silver: #c9ced0;
+      --white: #fff;
+      --max-width: 1160px;
+      --radius: 8px;
+      --ease: 220ms ease;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 92px;
+    }
+
+    body {
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body::before {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size: 64px 64px;
+      content: "";
+      mask-image: linear-gradient(to bottom, black, transparent 72%);
+      pointer-events: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--silver);
+      outline-offset: 4px;
+    }
+
+    .container {
+      width: min(88%, var(--max-width));
+      margin-inline: auto;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -60px;
+      left: 16px;
+      z-index: 300;
+      padding: 10px 14px;
+      background: var(--white);
+      color: #090a0b;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    /* Header and navigation */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--line);
+      background: rgba(9, 10, 11, .88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .nav-wrap {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .19em;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 31px;
+      height: 31px;
+      place-items: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 5px;
+      color: var(--silver);
+      font-size: 12px;
+      letter-spacing: 0;
+    }
+
+    .brand-name span {
+      color: var(--subtle);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(16px, 2.5vw, 31px);
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 650;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      transition: color var(--ease);
+    }
+
+    .nav-links a:hover,
+    .nav-links a[aria-current="location"] {
+      color: var(--white);
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 5px;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .menu-icon,
+    .menu-icon::before,
+    .menu-icon::after {
+      display: block;
+      width: 17px;
+      height: 1px;
+      background: currentColor;
+      transition: transform var(--ease);
+    }
+
+    .menu-icon {
+      position: relative;
+    }
+
+    .menu-icon::before,
+    .menu-icon::after {
+      position: absolute;
+      left: 0;
+      content: "";
+    }
+
+    .menu-icon::before { transform: translateY(-5px); }
+    .menu-icon::after { transform: translateY(5px); }
+
+    .menu-toggle[aria-expanded="true"] .menu-icon {
+      background: transparent;
+    }
+
+    .menu-toggle[aria-expanded="true"] .menu-icon::before {
+      transform: rotate(45deg);
+    }
+
+    .menu-toggle[aria-expanded="true"] .menu-icon::after {
+      transform: rotate(-45deg);
+    }
+
+    /* Shared typography and sections */
+    section {
+      padding-block: 104px;
+      border-top: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--silver);
+      font-size: 10px;
+      font-weight: 750;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 24px;
+      height: 1px;
+      background: #899195;
+      content: "";
+    }
+
+    .section-heading {
+      max-width: 690px;
+      margin-bottom: 38px;
+    }
+
+    .section-heading h2 {
+      margin-top: 13px;
+      font-size: clamp(29px, 4vw, 42px);
+      font-weight: 650;
+      letter-spacing: -.055em;
+      line-height: 1.15;
+    }
+
+    .section-heading p {
+      max-width: 620px;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      display: grid;
+      min-height: min(770px, calc(100svh - 76px));
+      align-items: center;
+      grid-template-columns: minmax(0, 1.35fr) minmax(250px, .65fr);
+      gap: 64px;
+      padding-block: 105px 112px;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      position: absolute;
+      top: 12%;
+      right: 2%;
+      width: 390px;
+      height: 390px;
+      border: 1px solid rgba(255,255,255,.045);
+      border-radius: 50%;
+      box-shadow: 0 0 0 48px rgba(255,255,255,.012), 0 0 0 96px rgba(255,255,255,.009);
+      content: "";
+      pointer-events: none;
+    }
+
+    .hero-copy,
+    .hero-panel {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .19em;
+      text-transform: uppercase;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #b7c0c2;
+      box-shadow: 0 0 13px rgba(210,220,220,.45);
+    }
+
+    .hero h1 {
+      max-width: 760px;
+      margin-top: 25px;
+      font-size: clamp(47px, 7.1vw, 84px);
+      font-weight: 650;
+      letter-spacing: -.075em;
+      line-height: .99;
+    }
+
+    .hero h1 span {
+      display: block;
+      margin-top: 9px;
+      color: #aeb5b8;
+    }
+
+    .hero-description {
+      max-width: 570px;
+      margin-top: 27px;
+      color: #aab0b3;
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 47px;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 19px;
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: background var(--ease), color var(--ease), border-color var(--ease), transform var(--ease);
+    }
+
+    .button-primary {
+      border-color: var(--white);
+      background: var(--white);
+      color: #0a0b0c;
+    }
+
+    .button-primary:hover {
+      transform: translateY(-2px);
+      border-color: #c8cdcf;
+      background: #c8cdcf;
+    }
+
+    .button-secondary {
+      color: var(--text);
+    }
+
+    .button-secondary:hover {
+      transform: translateY(-2px);
+      border-color: #aeb5b8;
+      background: rgba(255,255,255,.055);
+    }
+
+    .hero-panel {
+      justify-self: end;
+      width: min(100%, 325px);
+      padding: 25px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(26,29,31,.92), rgba(13,15,16,.94));
+      box-shadow: 0 24px 80px rgba(0,0,0,.25);
+    }
+
+    .panel-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+      color: var(--subtle);
+      font-size: 9px;
+      font-weight: 750;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .panel-index {
+      color: var(--silver);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .panel-title {
+      margin-top: 24px;
+      color: var(--white);
+      font-size: 21px;
+      font-weight: 600;
+      letter-spacing: -.04em;
+    }
+
+    .focus-list {
+      display: grid;
+      gap: 0;
+      margin-top: 19px;
+      list-style: none;
+    }
+
+    .focus-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-block: 13px;
+      border-top: 1px solid var(--line);
+      color: #c3c8ca;
+      font-size: 12px;
+    }
+
+    .focus-list small {
+      color: var(--subtle);
+      font-size: 9px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .hero-location {
+      margin-top: 22px;
+      color: var(--subtle);
+      font-size: 10px;
+      letter-spacing: .07em;
+    }
+
+    /* About and education */
+    .about-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(260px, .85fr);
+      gap: 20px;
+    }
+
+    .content-card,
+    .education-card,
+    .skill-card,
+    .project-card,
+    .activity-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .content-card {
+      padding: clamp(24px, 4vw, 36px);
+    }
+
+    .content-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .content-card p + p {
+      margin-top: 17px;
+    }
+
+    .content-card strong {
+      color: #e2e5e6;
+      font-weight: 600;
+    }
+
+    .education-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100%;
+      padding: 28px;
+      background: linear-gradient(155deg, #171a1c, #101213 75%);
+    }
+
+    .card-label {
+      color: var(--subtle);
+      font-size: 9px;
+      font-weight: 750;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .education-card h3 {
+      margin-top: 32px;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -.04em;
+      line-height: 1.3;
+    }
+
+    .education-card .course {
+      margin-top: 12px;
+      color: var(--silver);
+      font-size: 12px;
+    }
+
+    .education-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 25px;
+      padding: 3px 9px;
+      border: 1px solid var(--line-strong);
+      border-radius: 3px;
+      color: #b5bbbe;
+      font-size: 9px;
+      font-weight: 650;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .skill-card {
+      min-height: 215px;
+      padding: 25px;
+      transition: transform var(--ease), border-color var(--ease), background var(--ease);
+    }
+
+    .skill-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--line-strong);
+      background: var(--surface-raised);
+    }
+
+    .skill-number {
+      color: var(--subtle);
+      font-size: 10px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .12em;
+    }
+
+    .skill-card h3 {
+      margin-top: 25px;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -.025em;
+    }
+
+    .skill-card p {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .skill-level {
+      display: inline-block;
+      margin-top: 17px;
+      color: #c2c8ca;
+      font-size: 9px;
+      font-weight: 750;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .learning-note {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border-left: 2px solid #858e92;
+      background: rgba(255,255,255,.035);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .learning-note strong {
+      color: #e1e5e6;
+      font-weight: 650;
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .project-card {
+      display: flex;
+      min-height: 270px;
+      flex-direction: column;
+      padding: 27px;
+      transition: transform var(--ease), border-color var(--ease), background var(--ease);
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--line-strong);
+      background: var(--surface-raised);
+    }
+
+    .project-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .project-number {
+      color: var(--subtle);
+      font-size: 9px;
+      font-weight: 750;
+      letter-spacing: .16em;
+    }
+
+    .project-date {
+      color: var(--subtle);
+      font-size: 10px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .project-card h3 {
+      margin-top: 30px;
+      font-size: 21px;
+      font-weight: 600;
+      letter-spacing: -.04em;
+      line-height: 1.3;
+    }
+
+    .project-card p {
+      margin-top: 11px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.85;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: auto;
+      padding-top: 22px;
+    }
+
+    /* Community */
+    .activity-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .activity-card {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 25px;
+      padding: 24px 26px;
+    }
+
+    .activity-date {
+      color: var(--silver);
+      font-size: 10px;
+      font-weight: 750;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .activity-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -.02em;
+    }
+
+    .activity-card p {
+      max-width: 760px;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* Contact */
+    .contact-panel {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 32px;
+      padding: clamp(27px, 5vw, 48px);
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: linear-gradient(130deg, #191d1f 0%, #101213 70%);
+    }
+
+    .contact-panel::after {
+      position: absolute;
+      top: -110px;
+      right: 8%;
+      width: 250px;
+      height: 250px;
+      border: 1px solid rgba(255,255,255,.065);
+      border-radius: 50%;
+      box-shadow: 0 0 0 35px rgba(255,255,255,.018), 0 0 0 70px rgba(255,255,255,.012);
+      content: "";
+      pointer-events: none;
+    }
+
+    .contact-copy,
+    .contact-links {
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-copy h2 {
+      margin-top: 13px;
+      font-size: clamp(29px, 4vw, 42px);
+      font-weight: 600;
+      letter-spacing: -.055em;
+      line-height: 1.15;
+    }
+
+    .contact-copy p {
+      max-width: 530px;
+      margin-top: 13px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      min-width: 125px;
+    }
+
+    .contact-links a {
+      color: #d9ddde;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      transition: color var(--ease), transform var(--ease);
+    }
+
+    .contact-links a:hover {
+      transform: translateX(3px);
+      color: var(--white);
+    }
+
+    .contact-links a span {
+      margin-left: 5px;
+      color: var(--subtle);
+    }
+
+    /* Footer */
+    .site-footer {
+      padding-block: 25px;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--subtle);
+      font-size: 10px;
+    }
+
+    .footer-signature {
+      color: #b9c0c2;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    /* Scroll reveal: content remains visible if JavaScript is unavailable */
+    .js .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 650ms ease, transform 650ms ease;
+    }
+
+    .js .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr) minmax(220px, .72fr);
+        gap: 34px;
+      }
+
+      .hero-panel {
+        padding: 21px;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        width: min(90%, var(--max-width));
+      }
+
+      .nav-wrap {
+        min-height: 68px;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: calc(100% + 1px);
+        right: 0;
+        left: 0;
+        display: none;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 5% 15px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(9,10,11,.98);
+      }
+
+      .nav-links.is-open {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 13px 0;
+        border-bottom: 1px solid rgba(255,255,255,.055);
+        font-size: 11px;
+      }
+
+      .nav-links li:last-child a {
+        border-bottom: 0;
+      }
+
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        gap: 46px;
+        padding-block: 92px 82px;
+      }
+
+      .hero::after {
+        top: 7%;
+        right: -170px;
+        width: 300px;
+        height: 300px;
+      }
+
+      .hero h1 {
+        font-size: clamp(47px, 12vw, 68px);
+      }
+
+      .hero-description {
+        max-width: 520px;
+        font-size: 14px;
+      }
+
+      .hero-panel {
+        justify-self: start;
+        width: min(100%, 420px);
+      }
+
+      section {
+        padding-block: 76px;
+      }
+
+      .about-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .education-card {
+        min-height: 260px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .brand {
+        font-size: 11px;
+      }
+
+      .hero {
+        padding-top: 77px;
+      }
+
+      .hero h1 {
+        font-size: 46px;
+      }
+
+      .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skill-card {
+        min-height: 185px;
+      }
+
+      .activity-card {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 21px;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
+      .js .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+
+  <script>
+    document.documentElement.classList.add('js');
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="container nav-wrap" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Renal Maulana, home">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span class="brand-name">RENAL<span>.</span></span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">
+        <span class="menu-icon" aria-hidden="true"></span>
+      </button>
+
+      <ul class="nav-links" id="primary-navigation">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#community">Community</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- HERO -->
+    <div class="container hero" id="home">
+      <div class="hero-copy">
+        <div class="hero-kicker"><span class="status-dot" aria-hidden="true"></span> TJKT STUDENT / TECHNOLOGY ENTHUSIAST</div>
+        <h1>Renal<br><span>Maulana.</span></h1>
+        <p class="hero-description">
+          Building a strong foundation in computer networking, web development, and digital technology. I learn through practical projects, collaboration, and consistent exploration.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#projects">Explore my work <span aria-hidden="true">↗</span></a>
+          <a class="button button-secondary" href="#about">More about me <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Current learning focus">
+        <div class="panel-topline">
+          <span>Current focus</span>
+          <span class="panel-index">01 — 04</span>
+        </div>
+        <h2 class="panel-title">Areas of interest</h2>
+        <ul class="focus-list">
+          <li><span>Computer Networking</span><small>Core</small></li>
+          <li><span>Web Development</span><small>Building</small></li>
+          <li><span>Computer Systems</span><small>Exploring</small></li>
+          <li><span>Digital Communication</span><small>Practice</small></li>
+        </ul>
+        <p class="hero-location">Jatinangor, West Java, Indonesia</p>
+      </aside>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container reveal">
+        <div class="section-heading">
+          <span class="eyebrow">01 / Introduction</span>
+          <h2>About me</h2>
+          <p>A student developing practical technical skills and a responsible approach to learning.</p>
+        </div>
+
+        <div class="about-layout">
+          <article class="content-card">
+            <p>
+              My name is <strong>Renal Maulana</strong>. I am a student at <strong>SMK Padjadjaran Jatinangor</strong>, studying <strong>Computer and Telecommunications Network Engineering (TJKT)</strong> in Indonesia.
+            </p>
+            <p>
+              My main interests are computer networks, computer hardware, and web development. I am building my knowledge step by step, from understanding how computer systems work to creating simple web pages and learning how digital tools support communication.
+            </p>
+            <p>
+              I also take part in scouting and collaborative learning activities. These experiences help me practise communication, teamwork, responsibility, and documenting what I learn.
+            </p>
+          </article>
+
+          <aside class="education-card">
+            <div>
+              <span class="card-label">Education</span>
+              <h3>SMK Padjadjaran Jatinangor</h3>
+              <p class="course">Computer and Telecommunications Network Engineering (TJKT)</p>
+            </div>
+            <div class="education-meta">
+              <span class="tag">Vocational student</span>
+              <span class="tag">Class X</span>
+              <span class="tag">Indonesia</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="container reveal">
+        <div class="section-heading">
+          <span class="eyebrow">02 / Technical foundation</span>
+          <h2>Skills & learning areas</h2>
+          <p>My current foundations and areas of practice. These are learning-stage skills, not claims of professional-level expertise.</p>
+        </div>
+
+        <div class="skills-grid">
+          <article class="skill-card">
+            <span class="skill-number">01</span>
+            <h3>HTML</h3>
+            <p>Writing basic page structure, semantic elements, headings, links, and content sections.</p>
+            <span class="skill-level">Foundation</span>
+          </article>
+
+          <article class="skill-card">
+            <span class="skill-number">02</span>
+            <h3>CSS</h3>
+            <p>Styling interfaces, working with layouts, spacing, typography, and responsive design basics.</p>
+            <span class="skill-level">Foundation</span>
+          </article>
+
+          <article class="skill-card">
+            <span class="skill-number">03</span>
+            <h3>Computer Networking</h3>
+            <p>Developing an understanding of network concepts, connectivity, and infrastructure fundamentals.</p>
+            <span class="skill-level">In progress</span>
+          </article>
+
+          <article class="skill-card">
+            <span class="skill-number">04</span>
+            <h3>Git & GitHub</h3>
+            <p>Learning repository organisation, file management, commits, and the basics of version control.</p>
+            <span class="skill-level">Foundation</span>
+          </article>
+
+          <article class="skill-card">
+            <span class="skill-number">05</span>
+            <h3>Computer Hardware</h3>
+            <p>Exploring computer components, system basics, maintenance concepts, and hardware identification.</p>
+            <span class="skill-level">In progress</span>
+          </article>
+
+          <article class="skill-card">
+            <span class="skill-number">06</span>
+            <h3>Digital Communication</h3>
+            <p>Practising communication procedures and coordination tools in collaborative scouting activities.</p>
+            <span class="skill-level">Practical experience</span>
+          </article>
+        </div>
+
+        <p class="learning-note"><strong>Currently exploring:</strong> Linux fundamentals, Python basics, JavaScript, network configuration, and practical PC maintenance.</p>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="container reveal">
+        <div class="section-heading">
+          <span class="eyebrow">03 / Selected work</span>
+          <h2>Projects & initiatives</h2>
+          <p>Selected examples of my web development practice and involvement in digital learning activities.</p>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-top">
+              <span class="project-number">PROJECT 01</span>
+              <span class="project-date">2026</span>
+            </div>
+            <h3>Personal Portfolio Website</h3>
+            <p>A responsive personal website built to introduce my background, learning interests, technical foundations, and selected activities.</p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-top">
+              <span class="project-number">PROJECT 02</span>
+              <span class="project-date">16–18 Oct 2026</span>
+            </div>
+            <h3>JOTA-JOTI 2026 — Digital Scouting</h3>
+            <p>Contributed to a school scouting activity focused on digital communication, collaboration, and teamwork. The activity included communication practice using Zello and structured coordination.</p>
+            <div class="project-tags">
+              <span class="tag">Digital communication</span>
+              <span class="tag">Teamwork</span>
+              <span class="tag">Scouting</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-top">
+              <span class="project-number">PROJECT 03</span>
+              <span class="project-date">2026</span>
+            </div>
+            <h3>Edu Camp — Building Leadership Through Teamwork</h3>
+            <p>A scouting and learning initiative documented around leadership, cooperation, shared responsibility, and learning through group activities.</p>
+            <div class="project-tags">
+              <span class="tag">Leadership</span>
+              <span class="tag">Quality education</span>
+              <span class="tag">Collaboration</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-top">
+              <span class="project-number">PROJECT 04</span>
+              <span class="project-date">2026</span>
+            </div>
+            <h3>Pioneering Practice</h3>
+            <p>A practical scouting activity involving rope skills, knots, and the construction of a simple wooden flagpole structure.</p>
+            <div class="project-tags">
+              <span class="tag">Practical skills</span>
+              <span class="tag">Team coordination</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMMUNITY -->
+    <section id="community">
+      <div class="container reveal">
+        <div class="section-heading">
+          <span class="eyebrow">04 / Beyond technology</span>
+          <h2>Community & development</h2>
+          <p>Learning also happens through service, shared projects, and activities outside the classroom.</p>
+        </div>
+
+        <div class="activity-list">
+          <article class="activity-card">
+            <div class="activity-date">October 2026</div>
+            <div>
+              <h3>JOTA-JOTI 2026 — Digital Scouting</h3>
+              <p>School-based scouting collaboration involving digital communication activities, coordination, and teamwork between participating students.</p>
+            </div>
+          </article>
+
+          <article class="activity-card">
+            <div class="activity-date">September–November 2026</div>
+            <div>
+              <h3>Scouting projects & practical learning</h3>
+              <p>Participated in documented scouting activities covering leadership, cooperation, pioneering skills, and learning through practical tasks.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container reveal">
+        <div class="contact-panel">
+          <div class="contact-copy">
+            <span class="eyebrow">05 / Connect</span>
+            <h2>Let's stay connected.</h2>
+            <p>Follow my learning journey, explore my projects, and connect with me through the platforms below.</p>
+          </div>
+
+          <div class="contact-links" aria-label="Social profiles">
+            <a href="https://github.com/renalmaulanaid-creator" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+            <a href="https://www.linkedin.com/in/renal-maulana-805424448/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+            <a href="https://www.instagram.com/renalmaulanadriwanjaya/" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year">2026</span> Renal Maulana. All rights reserved.</p>
+      <p class="footer-signature">Designed & developed by Renal Maulana</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile navigation
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navigation = document.querySelector('.nav-links');
+
+    function closeMenu() {
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Open navigation menu');
+      navigation.classList.remove('is-open');
+    }
+
+    menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+      menuToggle.setAttribute('aria-label', isExpanded ? 'Open navigation menu' : 'Close navigation menu');
+      navigation.classList.toggle('is-open', !isExpanded);
+    });
+
+    navigation.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMenu();
+    });
+
+    // Update footer year automatically
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Reveal sections as they enter the viewport; show all if unsupported
+    const revealElements = document.querySelectorAll('.reveal');
+
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      revealElements.forEach((element) => revealObserver.observe(element));
+    } else {
+      revealElements.forEach((element) => element.classList.add('is-visible'));
+    }
+  </script>
+</body>
+</html>
